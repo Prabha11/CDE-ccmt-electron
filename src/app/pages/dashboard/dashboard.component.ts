@@ -18,6 +18,15 @@ export class DashboardComponent implements OnInit {
   loadingNewScan: boolean = false;
   selectedProject: Project = null;
   selectedFile: ProjectFile = null;
+  filters = {
+    showCs: true,
+    showCv: true,
+    showCm: true,
+    showCi: true,
+    showCcp: true,
+    showCcs: true,
+  };
+  seeFilters: boolean = false;
 
   constructor(private dialogService: NbDialogService,
               private toastrService: NbToastrService,
@@ -76,5 +85,43 @@ export class DashboardComponent implements OnInit {
   openComplexityViewerForFile(file: ProjectFile) {
     this.selectFile(file);
     this.dialogService.open(this.complexityViewer);
+  }
+
+  selectOptions(showCs: boolean, showCv: boolean, showCm: boolean,
+                showCi: boolean, showCcp: boolean, showCcs: boolean) {
+    this.filters.showCs = showCs;
+    this.filters.showCv = showCv;
+    this.filters.showCm = showCm;
+    this.filters.showCi = showCi;
+    this.filters.showCcp = showCcp;
+    this.filters.showCcs = showCcs;
+  }
+
+  selectCsOnly() {
+    this.selectOptions(true, false, false, false, false, false);
+  }
+
+  selectCvOnly() {
+    this.selectOptions(false, true, false, false, false, false);
+  }
+
+  selectCmOnly() {
+    this.selectOptions(false, false, true, false, false, false);
+  }
+
+  selectCiOnly() {
+    this.selectOptions(false, false, false, true, false, false);
+  }
+
+  selectCcpOnly() {
+    this.selectOptions(false, false, false, false, true, false);
+  }
+
+  selectCcsOnly() {
+    this.selectOptions(false, false, false, false, false, true);
+  }
+
+  selectAllFilters() {
+    this.selectOptions(true, true, true, true, true, true);
   }
 }

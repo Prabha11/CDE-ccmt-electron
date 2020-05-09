@@ -85,16 +85,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       )
       .subscribe(themeName => this.currentTheme = themeName);
 
-    this.loadUserDetails();
-    this.tokenService.tokenChange().subscribe(
-      value => {
-        if (value.getPayload()) {
-          this.loadUserDetails();
-        } else {
-          this.redirectionService.redirectToLogin();
-        }
-      },
-    );
+    this.navigateHome();
   }
 
   ngOnDestroy() {
@@ -118,21 +109,4 @@ export class HeaderComponent implements OnInit, OnDestroy {
     return false;
   }
 
-  loadUserDetails() {
-    const keys = Object.keys(localStorage);
-    for (const key of keys) {
-      // console.log(key);
-      // console.log(localStorage.getItem(key));
-    }
-    this.userApiService.getLoggedInUser().subscribe(
-      res => {
-        this.user = res;
-        this.toggleSidebar();
-      },
-      err => {
-        this.authService.login();
-        this.toggleSidebar();
-      },
-    );
-  }
 }
