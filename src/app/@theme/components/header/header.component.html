@@ -9,8 +9,26 @@
 
 <div class="header-container">
   <nb-actions size="small">
-<!--    <nb-action class="control-item">-->
-<!--      <nb-search type="rotate-layout"></nb-search>-->
-<!--    </nb-action>-->
+    <nb-action class="control-item">
+      <a (click)="openInfo()"><nb-icon icon="info-outline"></nb-icon></a>
+    </nb-action>
   </nb-actions>
 </div>
+
+<ng-template #info let-ref="dialogRef">
+  <nb-card style="width: 500px">
+    <nb-card-header>
+      Meanings of short forms
+    </nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-sm-12 form-group">Cs : Complexity due to size</div>
+        <div class="col-sm-12 form-group">Cv : Complexity due to variables</div>
+        <div class="col-sm-12 form-group">Cm : Complexity due to methods</div>
+        <div class="col-sm-12 form-group">Ci : Complexity due to inheritance</div>
+        <div class="col-sm-12 form-group">Ccp : Complexity due to coupling</div>
+        <div class="col-sm-12 form-group">Ccs : Complexity due to control structure</div>
+      </div>
+    </nb-card-body>
+  </nb-card>
+</ng-template>

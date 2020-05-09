@@ -1,5 +1,11 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {NbMediaBreakpointsService, NbMenuService, NbSidebarService, NbThemeService} from '@nebular/theme';
+import {Component, OnDestroy, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {
+  NbDialogService,
+  NbMediaBreakpointsService,
+  NbMenuService,
+  NbSidebarService,
+  NbThemeService,
+} from '@nebular/theme';
 
 import {UserData} from '../../../@core/data/users';
 import {LayoutService} from '../../../@core/utils';
@@ -49,12 +55,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   userMenu = [{title: 'Profile'}, {title: 'Log out'}];
 
+  @ViewChild('info', {static: false}) info: TemplateRef<any>;
+
   constructor(private sidebarService: NbSidebarService,
               private menuService: NbMenuService,
               private themeService: NbThemeService,
               private userService: UserData,
               private layoutService: LayoutService,
               private breakpointService: NbMediaBreakpointsService,
+              private dialogService: NbDialogService,
               private userApiService: UserApiService,
               private tokenService: NbTokenService,
               private redirectionService: RedirectionService,
@@ -109,4 +118,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     return false;
   }
 
+  openInfo() {
+    this.dialogService.open(this.info);
+  }
 }
