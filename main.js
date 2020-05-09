@@ -21,7 +21,6 @@ function createWindow () {
   win.loadURL(`file://${__dirname}/dist/index.html`);
 
   win.on('closed', function () {
-    console.log(child.kill());
     win = null
   });
 }
