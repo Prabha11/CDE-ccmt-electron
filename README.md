@@ -4,5 +4,5 @@
 3) Clone the angular - electron project repository
 2) Build the electron project by running 'npm run package'
 5) Copy built jar file to electron package location
-6) Finally, run the jar file
-
+6) Copy config folder from CCMT root folder to electron package location
+7) Finally, run the jar file
