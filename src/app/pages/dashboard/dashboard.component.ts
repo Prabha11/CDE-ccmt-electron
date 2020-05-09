@@ -4,6 +4,7 @@ import {ApiService} from '../../@core/service/api-service/api.service';
 import {ErrorHandlingService} from '../../@core/service/error-handling.service';
 import {Project} from '../../@core/model/project';
 import {ProjectFile} from '../../@core/model/project-file';
+import {Line} from '../../@core/model/line';
 
 @Component({
   selector: 'ngx-dashboard',
@@ -123,5 +124,29 @@ export class DashboardComponent implements OnInit {
 
   selectAllFilters() {
     this.selectOptions(true, true, true, true, true, true);
+  }
+
+  getFileSummary(file: ProjectFile): Line {
+    const summaryLine: Line = {ci: 0, cnc: 0, cps: 0, cr: 0, cs: 0, ctc: 0, data: '', lineNo: 0, tw: 0};
+    for (const line of file.linesData) {
+      summaryLine.cs += line.cs;
+      summaryLine.ctc += line.ctc;
+      summaryLine.cnc += line.cnc;
+      summaryLine.ci += line.ci;
+      summaryLine.cps += line.cps;
+      summaryLine.tw += line.tw;
+      summaryLine.cr += line.cr;
+    }
+    return summaryLine;
+  }
+
+  isAllSelected(): boolean {
+    return false;
+    // return this.filters.showCs &&
+    //   this.filters.showCv &&
+    //   this.filters.showCm &&
+    //   this.filters.showCi &&
+    //   this.filters.showCcp &&
+    //   this.filters.showCcs;
   }
 }
