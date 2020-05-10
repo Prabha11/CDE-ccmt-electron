@@ -1,4 +1,4 @@
-# CCMT - Build guide
+# CDE Code Complexity Mesuring Tool - Build guide
 
 ### Prerequisites
 1) Maven installed
