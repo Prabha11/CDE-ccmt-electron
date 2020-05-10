@@ -1,4 +1,4 @@
-# CCMT - Installation guide
+# CCMT - Build guide
 
 ### Prerequisites
 1) Maven installed
