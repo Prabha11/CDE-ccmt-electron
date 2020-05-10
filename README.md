@@ -2,13 +2,13 @@
 
 ### Prerequisites
 1) Maven installed
-2) NodeJs and bpm installed
+2) NodeJs and npm installed
 3) MongoDB installed
 4) git installed
 
 ### Steps
 1) Start MongoDB
-2) Go to mongod application in a new termina
+2) Go to mongod application in a new terminal
 3) Create a database with name 'acc' by using command ```use acc```
 1) Make a directory in your computer as the root directory of the project. eg: ```mkdir ccmt-project```
 1) Chande workig directory to project root derectory. eg: ```cd ccmt-project```
