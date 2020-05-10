@@ -1,6 +1,6 @@
 <div class="header-container">
   <div class="logo-container">
-    <a class="logo" href="#" (click)="navigateHome()">Code Complexity Measuring Tool</a>
+    <a class="logo" href="#" (click)="navigateHome()">CDE Code Complexity Measuring Tool</a>
   </div>
   <nb-select hidden [selected]="currentTheme" (selectedChange)="changeTheme($event)" status="primary">
     <nb-option *ngFor="let theme of themes" [value]="theme.value"> {{ theme.name }}</nb-option>
