@@ -12,13 +12,13 @@
 3) Create a database with name 'acc' by using command ```use acc```
 1) Make a directory in your computer as the root directory of the project. eg: ```mkdir cde-ccmt-project```
 1) Change working directory to project root directory. eg: ```cd cde-ccmt-project```
-3) Clone the angular - electron project repository. ```git clone https://github.com/Prabha11/CDE-ccmt-electron.git```
+3) Clone the angular - electron project repository. ```git clone <example repo>.git```
 1) Change working directory to angular - electron project derectory. ```cd CDE-ccmt-electron```
 2) Get npm dependencies. ```npm install```
 2) Build the project by running. ```npm run build```
 2) Package the electron project by running. ```npm run package```
 2) Go back to project root directory. eg: ```cd ..```
-1) Clone the CCMT java project repository. ```git clone https://github.com/Prabha11/CDE-CCMT.git```
+1) Clone the CCMT java project repository. ```git clone <example repo>.git```
 1) Change working directory to angular - electron project derectory. ```cd CDE-CCMT```
 2) Install dependencies by running. ```mvn clean install```
 2) Build the project by running. ```mvn clean package```
