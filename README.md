@@ -1,9 +1,9 @@
 # CCMT - Installation guide
 
 ### Prerequisites
-1)Maven installed
-2)NodeJs and bpm installed
-3)MongoDB installed
+1) Maven installed
+2) NodeJs and bpm installed
+3) MongoDB installed
 
 ### Steps
 1) Clone the java project repository
