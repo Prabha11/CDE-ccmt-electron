@@ -21,7 +21,7 @@
 1) Clone the CCMT java project repository. ```git clone https://github.com/Prabha11/CDE-CCMT.git```
 1) Change working directory to angular - electron project derectory. ```cd CDE-CCMT```
 2) Install dependencies by running. ```mvn clean install```
-2) Build the project by running. ```mvn clean package``
+2) Build the project by running. ```mvn clean package```
 5) Copy built jar file ```ccmt-project/CDE-CCMT/target/CDE-CCMT-0.0.1-SNAPSHOT.jar``` to electron package location ```cde-ccmt-project/CDE-ccmt-electron/ccmt-electron-win32-x64```
 6) Copy config folder ```ccmt-project/CDE-CCMT/config``` from CCMT root folder to electron package location ```cde-ccmt-project/CDE-ccmt-electron/ccmt-electron-win32-x64```
 7) Finally, run the jar file ```cde-ccmt-project/ccmt-electron/ccmt-electron-win32-x64/CDE-CCMT-0.0.1-SNAPSHOT.jar```
