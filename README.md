@@ -11,14 +11,14 @@
 2) Go to mongod application in a new terminal
 3) Create a database with name 'acc' by using command ```use acc```
 1) Make a directory in your computer as the root directory of the project. eg: ```mkdir cde-ccmt-project```
-1) Change working directory to project root directory. eg: ```cd ccmt-project```
-3) Clone the angular - electron project repository. ```git clone https://github.com/Prabha11/ccmt-electron.git```
-1) Change working directory to angular - electron project derectory. ```cd ccmt-electron```
+1) Change working directory to project root directory. eg: ```cd cde-ccmt-project```
+3) Clone the angular - electron project repository. ```git clone https://github.com/Prabha11/CDE-ccmt-electron.git```
+1) Change working directory to angular - electron project derectory. ```cd CDE-ccmt-electron```
 2) Build the electron project by running. ```npm run package```
 2) Go back to project root directory. eg: ```cd ..```
-1) Clone the CCMT java project repository. ```git clone https://github.com/Prabha11/CCMT.git```
-1) Change working directory to angular - electron project derectory. ```cd CCMT```
+1) Clone the CCMT java project repository. ```git clone https://github.com/Prabha11/CDE-CCMT.git```
+1) Change working directory to angular - electron project derectory. ```cd CDE-CCMT```
 2) Build the project by running. ```mvn clean package```
-5) Copy built jar file ```ccmt-project/CCMT/target/ACC-0.0.1-SNAPSHOT.jar``` to electron package location ```cde-ccmt-project/ccmt-electron/ccmt-electron-win32-x64```
-6) Copy config folder ```ccmt-project/CCMT/config``` from CCMT root folder to electron package location ```cde-ccmt-project/ccmt-electron/ccmt-electron-win32-x64```
-7) Finally, run the jar file ```cde-ccmt-project/ccmt-electron/ccmt-electron-win32-x64/ACC-0.0.1-SNAPSHOT.jar```
+5) Copy built jar file ```ccmt-project/CDE-CCMT/target/CDE-CCMT-0.0.1-SNAPSHOT.jar``` to electron package location ```cde-ccmt-project/CDE-ccmt-electron/ccmt-electron-win32-x64```
+6) Copy config folder ```ccmt-project/CDE-CCMT/config``` from CCMT root folder to electron package location ```cde-ccmt-project/CDE-ccmt-electron/ccmt-electron-win32-x64```
+7) Finally, run the jar file ```cde-ccmt-project/ccmt-electron/ccmt-electron-win32-x64/CDE-CCMT-0.0.1-SNAPSHOT.jar```
