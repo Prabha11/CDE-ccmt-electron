@@ -120,8 +120,7 @@ export class WeightService {
     if (methodComplexity.returnType === 0) Wmrt = this._weightValuesForMethods.MethodWithAVoidReturnType;
     else if (methodComplexity.returnType === 1) Wmrt = this._weightValuesForMethods.MethodWithAPrimitiveReturnType;
     else if (methodComplexity.returnType === -1) Wmrt = this._weightValuesForMethods.MethodWithACompositeReturnType;
-
-    return (Wmrt +
+    return ((+Wmrt) +
       (this._weightValuesForMethods.PrimitiveDataTypeParameter * methodComplexity.numberOfPrimitiveDataTypeParameters)
       +
       (this._weightValuesForMethods.CompositeDataTypeParameter * methodComplexity.numberOfCompositeDataTypeParameters));
