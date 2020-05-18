@@ -5,6 +5,9 @@ import {ErrorHandlingService} from '../../@core/service/error-handling.service';
 import {Project} from '../../@core/model/project';
 import {ProjectFile} from '../../@core/model/project-file';
 import {Line} from '../../@core/model/line';
+import {WeightService} from '../../@core/service/weight.service';
+import {VariableComplexity} from '../../@core/model/variable-complexity';
+import {MethodComplexity} from '../../@core/model/method-complexity';
 
 @Component({
   selector: 'ngx-dashboard',
@@ -127,7 +130,8 @@ export class DashboardComponent implements OnInit {
   }
 
   getFileSummary(file: ProjectFile): Line {
-    const summaryLine: Line = {ci: 0, cnc: 0, cps: 0, cr: 0, cs: 0, ctc: 0, data: '', lineNo: 0, tw: 0};
+    const summaryLine: Line = {ci: 0, cnc: 0, cps: 0, cr: 0, cs: 0, ctc: 0, data: '', lineNo: 0, tw: 0,
+      methodComplexity: null, variableComplexity: null};
     for (const line of file.linesData) {
       summaryLine.cs += line.cs;
       summaryLine.ctc += line.ctc;
@@ -148,5 +152,17 @@ export class DashboardComponent implements OnInit {
     //   this.filters.showCi &&
     //   this.filters.showCcp &&
     //   this.filters.showCcs;
+  }
+
+  getVariableComplexity(variableComplexity: VariableComplexity): number {
+    if (variableComplexity)
+      return WeightService.getComplexityDueToVariable(variableComplexity);
+    else return 0;
+  }
+
+  getMethodComplexity(methodComplexity: MethodComplexity): number {
+    if (methodComplexity)
+      return WeightService.getComplexityDueToMethod(methodComplexity);
+    else return 0;
   }
 }

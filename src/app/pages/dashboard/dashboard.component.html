@@ -1,5 +1,7 @@
 <img src="../../../assets/images/back.jpg"
      style="position: absolute !important;left: 0px !important;top: 0px !important; width: 100% !important;">
+<img src="assets/images/back.jpg"
+     style="position: absolute !important;left: 0px !important;top: 0px !important; width: 100% !important;">
 <div class="row">
   <div class="col-md-6">
 
@@ -126,8 +128,8 @@
           <td><label class="label">{{lineData.lineNo}}</label></td>
           <td>{{lineData.data}}</td>
           <td *ngIf="filters.showCs" class="text-success">{{lineData.cs}}</td>
-          <td *ngIf="filters.showCv" class="text-info">0</td>
-          <td *ngIf="filters.showCm" class="text-warning">0</td>
+          <td *ngIf="filters.showCv" class="text-info">{{getVariableComplexity(lineData?.variableComplexity)}}</td>
+          <td *ngIf="filters.showCm" class="text-warning">{{getMethodComplexity(lineData?.methodComplexity)}}</td>
           <td *ngIf="filters.showCi" class="text-danger">{{lineData.ci}}</td>
           <td *ngIf="filters.showCcp" class="text-primary">{{lineData.cnc}}</td>
           <td *ngIf="filters.showCcs" class="text-info">{{lineData.ctc}}</td>

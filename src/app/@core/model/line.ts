@@ -1,3 +1,6 @@
+import {VariableComplexity} from './variable-complexity';
+import {MethodComplexity} from './method-complexity';
+
 export interface Line {
   lineNo: number;
   data: string;
@@ -8,4 +11,6 @@ export interface Line {
   cps: number;
   tw: number;
   cr: number;
+  variableComplexity: VariableComplexity;
+  methodComplexity: MethodComplexity;
 }

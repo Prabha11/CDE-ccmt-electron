@@ -16,6 +16,7 @@ import {AuthService} from '../../../@core/service/auth.service';
 import {User} from '../../../@core/model/user';
 import {NbTokenService} from '@nebular/auth';
 import {RedirectionService} from '../../../@core/service/redirection.service';
+import {WeightService} from '../../../@core/service/weight.service';
 
 @Component({
   selector: 'ngx-header',
@@ -229,6 +230,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   };
 
   saveNotification() {
+    WeightService.setWeightValuesForVariables(this.weightValuesForVariables);
+    WeightService.setWeightValuesForMethods(this.weightValuesForMethods);
     this.toastrService.success('Values saved successfully!', 'Successful');
   }
 }
