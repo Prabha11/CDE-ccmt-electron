@@ -232,6 +232,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   saveNotification() {
     WeightService.setWeightValuesForVariables(this.weightValuesForVariables);
     WeightService.setWeightValuesForMethods(this.weightValuesForMethods);
+    WeightService.setWeightValuesForSize(this.weightValuesForSize);
     this.toastrService.success('Values saved successfully!', 'Successful');
   }
 }

@@ -8,6 +8,22 @@ import {Line} from '../../@core/model/line';
 import {WeightService} from '../../@core/service/weight.service';
 import {VariableComplexity} from '../../@core/model/variable-complexity';
 import {MethodComplexity} from '../../@core/model/method-complexity';
+import {SizeComplexity} from '../../@core/model/size-complexity';
+
+class LineMock {
+  sizeComplexity: number;
+  ci: number;
+  cnc: number;
+  cps: number;
+  cr: number;
+  cs: number;
+  ctc: number;
+  data: number;
+  lineNo: number;
+  tw: number;
+  methodComplexity: number;
+  variableComplexity: number;
+}
 
 @Component({
   selector: 'ngx-dashboard',
@@ -16,6 +32,7 @@ import {MethodComplexity} from '../../@core/model/method-complexity';
 })
 export class DashboardComponent implements OnInit {
   @ViewChild('complexityViewer', {static: false}) complexityViewer: TemplateRef<any>;
+  @ViewChild('projectComplexityViewer', {static: false}) projectComplexityViewer: TemplateRef<any>;
   allProjects: Project[] = [];
   sourcePathForNewScan: string = '';
   projectKeyForNewScan: string = '';
@@ -31,6 +48,9 @@ export class DashboardComponent implements OnInit {
     showCcs: true,
   };
   seeFilters: boolean = false;
+  private selectedFileSizeComplexity: number;
+  private selectedFileVariableComplexity: number;
+  private selectedFileMethodComplexity: number;
 
   constructor(private dialogService: NbDialogService,
               private toastrService: NbToastrService,
@@ -129,17 +149,25 @@ export class DashboardComponent implements OnInit {
     this.selectOptions(true, true, true, true, true, true);
   }
 
-  getFileSummary(file: ProjectFile): Line {
-    const summaryLine: Line = {ci: 0, cnc: 0, cps: 0, cr: 0, cs: 0, ctc: 0, data: '', lineNo: 0, tw: 0,
-      methodComplexity: null, variableComplexity: null};
+  getFileSummary(file: ProjectFile): LineMock {
+    const summaryLine: LineMock = {
+      sizeComplexity: 0, ci: 0, cnc: 0, cps: 0, cr: 0, cs: 0, ctc: 0, data: 0, lineNo: 0, tw: 0,
+      methodComplexity: 0, variableComplexity: 0,
+    };
+    this.selectedFileSizeComplexity = 0;
     for (const line of file.linesData) {
-      summaryLine.cs += line.cs;
-      summaryLine.ctc += line.ctc;
-      summaryLine.cnc += line.cnc;
-      summaryLine.ci += line.ci;
-      summaryLine.cps += line.cps;
-      summaryLine.tw += line.tw;
-      summaryLine.cr += line.cr;
+      if (line) {
+        summaryLine.cs += line.cs;
+        summaryLine.ctc += line.ctc;
+        summaryLine.cnc += line.cnc;
+        summaryLine.ci += line.ci;
+        summaryLine.cps += line.cps;
+        summaryLine.tw += line.tw;
+        summaryLine.cr += line.cr;
+        summaryLine.sizeComplexity += this.getSizeComplexity(line.sizeComplexity);
+        summaryLine.variableComplexity += this.getVariableComplexity(line.variableComplexity);
+        summaryLine.methodComplexity += this.getMethodComplexity(line.methodComplexity);
+      }
     }
     return summaryLine;
   }
@@ -164,5 +192,32 @@ export class DashboardComponent implements OnInit {
     if (methodComplexity)
       return WeightService.getComplexityDueToMethod(methodComplexity);
     else return 0;
+  }
+
+  getSizeComplexity(sizeComplexity: SizeComplexity): number {
+    if (sizeComplexity)
+      return WeightService.getComplexityDueToSize(sizeComplexity);
+    else return 0;
+  }
+
+  calculateProjectComplexity(): number {
+    let totalComplexity: number = 0;
+
+    for (const file of this.selectedProject.files) {
+      for (const line of file.linesData) {
+        totalComplexity += this.getSizeComplexity(line.sizeComplexity);
+        totalComplexity += this.getVariableComplexity(line.variableComplexity);
+        totalComplexity += this.getMethodComplexity(line.methodComplexity);
+        totalComplexity += line.ci;
+        totalComplexity += line.cnc;
+        totalComplexity += line.ctc;
+      }
+    }
+
+    return totalComplexity;
+  }
+
+  openProjectComplexity() {
+    this.dialogService.open(this.projectComplexityViewer);
   }
 }

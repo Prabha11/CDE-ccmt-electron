@@ -1,12 +1,13 @@
 import {Injectable} from '@angular/core';
 import {VariableComplexity} from '../model/variable-complexity';
 import {MethodComplexity} from '../model/method-complexity';
+import {SizeComplexity} from '../model/size-complexity';
 
 @Injectable({
   providedIn: 'root',
 })
 export class WeightService {
-  static weightValuesForSize = {
+  private static _weightValuesForSize = {
     Keyword: 1,
     Identifier: 1,
     Operator: 1,
@@ -72,16 +73,26 @@ export class WeightService {
 
 
   static setWeightValuesForMethods(value:
-                                      {
-                                        MethodWithACompositeReturnType: number;
-                                        CompositeDataTypeParameter: number;
-                                        MethodWithAPrimitiveReturnType: number;
-                                        PrimitiveDataTypeParameter: number;
-                                        MethodWithAVoidReturnType: number
-                                      }) {
+                                     {
+                                       MethodWithACompositeReturnType: number;
+                                       CompositeDataTypeParameter: number;
+                                       MethodWithAPrimitiveReturnType: number;
+                                       PrimitiveDataTypeParameter: number;
+                                       MethodWithAVoidReturnType: number
+                                     }) {
     this._weightValuesForMethods = value;
   }
 
+  static setWeightValuesForSize(value:
+                                  {
+                                    Operator: number;
+                                    Identifier: number;
+                                    Keyword: number;
+                                    StringLiteral: number;
+                                    NumericalValue: number
+                                  }) {
+    this._weightValuesForSize = value;
+  }
 
   static get weightValuesForVariables():
     {
@@ -124,5 +135,13 @@ export class WeightService {
       (this._weightValuesForMethods.PrimitiveDataTypeParameter * methodComplexity.numberOfPrimitiveDataTypeParameters)
       +
       (this._weightValuesForMethods.CompositeDataTypeParameter * methodComplexity.numberOfCompositeDataTypeParameters));
+  }
+
+  static getComplexityDueToSize(sizeComplexity: SizeComplexity) {
+    return (sizeComplexity.numberOfIdentifiers * this._weightValuesForSize.Identifier) +
+      (sizeComplexity.numberOfKeyWords * this._weightValuesForSize.Keyword) +
+      (sizeComplexity.numberOfNumericalValues * this._weightValuesForSize.NumericalValue) +
+      (sizeComplexity.numberOfOperators * this._weightValuesForSize.Operator) +
+      (sizeComplexity.numberOfStringLiterals * this._weightValuesForSize.StringLiteral);
   }
 }
