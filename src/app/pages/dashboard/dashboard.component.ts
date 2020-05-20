@@ -9,6 +9,7 @@ import {WeightService} from '../../@core/service/weight.service';
 import {VariableComplexity} from '../../@core/model/variable-complexity';
 import {MethodComplexity} from '../../@core/model/method-complexity';
 import {SizeComplexity} from '../../@core/model/size-complexity';
+import {ControlStructureComplexity} from '../../@core/model/control-structure-complexity';
 
 class LineMock {
   sizeComplexity: number;
@@ -23,6 +24,9 @@ class LineMock {
   tw: number;
   methodComplexity: number;
   variableComplexity: number;
+  controlStructureComplexity: number;
+  inheritanceComplexity: number;
+  couplingComplexity: number;
 }
 
 @Component({
@@ -151,6 +155,7 @@ export class DashboardComponent implements OnInit {
 
   getFileSummary(file: ProjectFile): LineMock {
     const summaryLine: LineMock = {
+      controlStructureComplexity: 0, couplingComplexity: 0, inheritanceComplexity: 0,
       sizeComplexity: 0, ci: 0, cnc: 0, cps: 0, cr: 0, cs: 0, ctc: 0, data: 0, lineNo: 0, tw: 0,
       methodComplexity: 0, variableComplexity: 0,
     };
@@ -167,6 +172,7 @@ export class DashboardComponent implements OnInit {
         summaryLine.sizeComplexity += this.getSizeComplexity(line.sizeComplexity);
         summaryLine.variableComplexity += this.getVariableComplexity(line.variableComplexity);
         summaryLine.methodComplexity += this.getMethodComplexity(line.methodComplexity);
+        summaryLine.controlStructureComplexity += this.getControlStructureComplexity(line.controlStructureComplexity);
       }
     }
     return summaryLine;
@@ -200,6 +206,12 @@ export class DashboardComponent implements OnInit {
     else return 0;
   }
 
+  getControlStructureComplexity(controlStructureComplexity: ControlStructureComplexity): number {
+    if (controlStructureComplexity)
+      return WeightService.getComplexityDueToControlStructure(controlStructureComplexity);
+    else return 0;
+  }
+
   calculateProjectComplexity(): number {
     let totalComplexity: number = 0;
 
@@ -210,7 +222,7 @@ export class DashboardComponent implements OnInit {
         totalComplexity += this.getMethodComplexity(line.methodComplexity);
         totalComplexity += line.ci;
         totalComplexity += line.cnc;
-        totalComplexity += line.ctc;
+        totalComplexity += this.getControlStructureComplexity(line.controlStructureComplexity);
       }
     }
 

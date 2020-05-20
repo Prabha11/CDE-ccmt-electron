@@ -135,7 +135,8 @@
           <td *ngIf="filters.showCm" class="text-warning">{{getMethodComplexity(lineData?.methodComplexity)}}</td>
           <td *ngIf="filters.showCi" class="text-danger">{{lineData.ci}}</td>
           <td *ngIf="filters.showCcp" class="text-primary">{{lineData.cnc}}</td>
-          <td *ngIf="filters.showCcs" class="text-info">{{lineData.ctc}}</td>
+          <td *ngIf="filters.showCcs" class="text-info">
+            {{getControlStructureComplexity(lineData?.controlStructureComplexity)}}</td>
           <td *ngIf="isAllSelected()" class="text-info">{{getSizeComplexity(lineData?.sizeComplexity) +
                             getVariableComplexity(lineData?.variableComplexity) +
                             getMethodComplexity(lineData?.methodComplexity) +
@@ -152,7 +153,7 @@
       <label class="label right-gap-long">Cm : {{getFileSummary(selectedFile).methodComplexity}}</label>
       <label class="label right-gap-long">Ci : {{getFileSummary(selectedFile).ci}}</label>
       <label class="label right-gap-long">Ccp : {{getFileSummary(selectedFile).cnc}}</label>
-      <label class="label right-gap-long">Ccs : {{getFileSummary(selectedFile).ctc}}</label>
+      <label class="label right-gap-long">Ccs : {{getFileSummary(selectedFile).controlStructureComplexity}}</label>
 <!--      <label class="label right-gap-long">Tw : {{getFileSummary(selectedFile).tw}}</label>-->
     </nb-card-footer>
   </nb-card>
