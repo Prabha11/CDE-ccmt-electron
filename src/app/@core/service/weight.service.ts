@@ -3,6 +3,7 @@ import {VariableComplexity} from '../model/variable-complexity';
 import {MethodComplexity} from '../model/method-complexity';
 import {SizeComplexity} from '../model/size-complexity';
 import {ControlStructureComplexity} from '../model/control-structure-complexity';
+import {InheritanceComplexity} from '../model/inheritance-complexity';
 
 @Injectable({
   providedIn: 'root',
@@ -191,5 +192,22 @@ export class WeightService {
                 * controlStructureComplexity.noOfLoops) +
       (this._weightValuesForControlStructure.Aconditionalcontrolstructuresuchasaniforelseifcondition
                 * controlStructureComplexity.noOfIfs);
+  }
+
+  static getComplexityDueInheritance(inheritanceComplexity: InheritanceComplexity): number {
+    if (inheritanceComplexity && inheritanceComplexity.aClass) {
+      if (inheritanceComplexity.noOfInheritances && (inheritanceComplexity.noOfInheritances > 3)) {
+        return this._weightValuesForInheritance.more;
+      } else if (inheritanceComplexity.noOfInheritances && (inheritanceComplexity.noOfInheritances === 3)) {
+        return this._weightValuesForInheritance.three;
+      } else if (inheritanceComplexity.noOfInheritances && (inheritanceComplexity.noOfInheritances === 2)) {
+        return this._weightValuesForInheritance.two;
+      } else if (inheritanceComplexity.noOfInheritances && (inheritanceComplexity.noOfInheritances === 1)) {
+        return this._weightValuesForInheritance.one;
+      } else if (inheritanceComplexity.noOfInheritances && (inheritanceComplexity.noOfInheritances === 0)) {
+        return this._weightValuesForInheritance.no;
+      }
+    }
+    return 0;
   }
 }

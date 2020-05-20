@@ -133,7 +133,8 @@
           <td *ngIf="filters.showCs" class="text-success">{{getSizeComplexity(lineData?.sizeComplexity)}}</td>
           <td *ngIf="filters.showCv" class="text-info">{{getVariableComplexity(lineData?.variableComplexity)}}</td>
           <td *ngIf="filters.showCm" class="text-warning">{{getMethodComplexity(lineData?.methodComplexity)}}</td>
-          <td *ngIf="filters.showCi" class="text-danger">{{lineData.ci}}</td>
+          <td *ngIf="filters.showCi" class="text-danger">
+            {{getInheritanceComplexity(lineData?.inheritanceComplexity)}}</td>
           <td *ngIf="filters.showCcp" class="text-primary">{{lineData.cnc}}</td>
           <td *ngIf="filters.showCcs" class="text-info">
             {{getControlStructureComplexity(lineData?.controlStructureComplexity)}}</td>
@@ -151,7 +152,7 @@
       <label class="label right-gap-long">Cs : {{getFileSummary(selectedFile).sizeComplexity}}</label>
       <label class="label right-gap-long">Cv : {{getFileSummary(selectedFile).variableComplexity}}</label>
       <label class="label right-gap-long">Cm : {{getFileSummary(selectedFile).methodComplexity}}</label>
-      <label class="label right-gap-long">Ci : {{getFileSummary(selectedFile).ci}}</label>
+      <label class="label right-gap-long">Ci : {{getFileSummary(selectedFile).inheritanceComplexity}}</label>
       <label class="label right-gap-long">Ccp : {{getFileSummary(selectedFile).cnc}}</label>
       <label class="label right-gap-long">Ccs : {{getFileSummary(selectedFile).controlStructureComplexity}}</label>
 <!--      <label class="label right-gap-long">Tw : {{getFileSummary(selectedFile).tw}}</label>-->
