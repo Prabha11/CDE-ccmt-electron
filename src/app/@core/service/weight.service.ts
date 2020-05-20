@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {VariableComplexity} from '../model/variable-complexity';
 import {MethodComplexity} from '../model/method-complexity';
 import {SizeComplexity} from '../model/size-complexity';
+import {ControlStructureComplexity} from '../model/control-structure-complexity';
 
 @Injectable({
   providedIn: 'root',
@@ -30,7 +31,7 @@ export class WeightService {
     CompositeDataTypeParameter: 2,
   };
 
-  static weightValuesForInheritance = {
+  private static _weightValuesForInheritance = {
     no: 0,
     one: 1,
     two: 2,
@@ -38,7 +39,7 @@ export class WeightService {
     more: 4,
   };
 
-  static weightValuesForCoupling = {
+  private static _weightValuesForCoupling = {
     Arecursivecall: 2,
     Aregularmethodcallinganotherregularmethodinthesamefile: 2,
     Aregularmethodcallinganotherregularmethodinadifferentfile: 3,
@@ -54,7 +55,7 @@ export class WeightService {
     Arecursivemethodreferencingaglobalvariableinadifferentfile: 2,
   };
 
-  static weightValuesForControlStructure = {
+  private static _weightValuesForControlStructure = {
     Aconditionalcontrolstructuresuchasaniforelseifcondition: 2,
     Aniterativecontrolstructuresuchasaforwhileordowhileloop: 3,
     Theswitchstatementinaswitchcasecontrolstructure: 2,
@@ -92,6 +93,42 @@ export class WeightService {
                                     NumericalValue: number
                                   }) {
     this._weightValuesForSize = value;
+  }
+
+
+  static setWeightValuesForControlStructure(value:
+                                              { Aniterativecontrolstructuresuchasaforwhileordowhileloop: number;
+                                              Theswitchstatementinaswitchcasecontrolstructure: number;
+                                              Eachcasestatementinaswitchcasecontrolstructure: number;
+                                              Aconditionalcontrolstructuresuchasaniforelseifcondition: number }) {
+    this._weightValuesForControlStructure = value;
+  }
+
+
+  static setWeightValuesForInheritance(value:
+                                         { no: number;
+                                         more: number;
+                                         one: number;
+                                         two: number;
+                                         three: number }) {
+    this._weightValuesForInheritance = value;
+  }
+
+  static setWeightValuesForCoupling(value:
+                                      { Arecursivemethodreferencingaglobalvariableinthesamefile: number;
+                                      Arecursivemethodcallinganotherrecursivemethodinadifferentfile: number;
+                                      Aregularmethodcallinganotherregularmethodinadifferentfile: number;
+                                      Arecursivecall: number;
+                                      Aregularmethodreferencingaglobalvariableinthesamefile: number;
+                                      Aregularmethodreferencingaglobalvariableinadifferentfile: number;
+                                      Aregularmethodcallingarecursivemethodinadifferentfile: number;
+                                      Aregularmethodcallinganotherregularmethodinthesamefile: number;
+                                      Arecursivemethodcallingaregularmethodinadifferentfile: number;
+                                      Arecursivemethodcallinganotherrecursivemethodinthesamefile: number;
+                                      Arecursivemethodreferencingaglobalvariableinadifferentfile: number;
+                                      Aregularmethodcallingarecursivemethodinthesamefile: number;
+                                      Arecursivemethodcallingaregularmethodinthesamefile: number }) {
+    this._weightValuesForCoupling = value;
   }
 
   static get weightValuesForVariables():
@@ -143,5 +180,16 @@ export class WeightService {
       (sizeComplexity.numberOfNumericalValues * this._weightValuesForSize.NumericalValue) +
       (sizeComplexity.numberOfOperators * this._weightValuesForSize.Operator) +
       (sizeComplexity.numberOfStringLiterals * this._weightValuesForSize.StringLiteral);
+  }
+
+  static getComplexityDueToControlStructure(controlStructureComplexity: ControlStructureComplexity): number {
+    return (this._weightValuesForControlStructure.Eachcasestatementinaswitchcasecontrolstructure
+                * controlStructureComplexity.noOfCases) +
+      (this._weightValuesForControlStructure.Theswitchstatementinaswitchcasecontrolstructure
+                * controlStructureComplexity.noOfSwitches) +
+      (this._weightValuesForControlStructure.Aniterativecontrolstructuresuchasaforwhileordowhileloop
+                * controlStructureComplexity.noOfLoops) +
+      (this._weightValuesForControlStructure.Aconditionalcontrolstructuresuchasaniforelseifcondition
+                * controlStructureComplexity.noOfIfs);
   }
 }

@@ -233,6 +233,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     WeightService.setWeightValuesForVariables(this.weightValuesForVariables);
     WeightService.setWeightValuesForMethods(this.weightValuesForMethods);
     WeightService.setWeightValuesForSize(this.weightValuesForSize);
+    WeightService.setWeightValuesForControlStructure(this.weightValuesForControlStructure);
+    WeightService.setWeightValuesForInheritance(this.weightValuesForInheritance);
+    WeightService.setWeightValuesForCoupling(this.weightValuesForCoupling);
     this.toastrService.success('Values saved successfully!', 'Successful');
   }
 }
