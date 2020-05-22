@@ -77,7 +77,7 @@
                 <button nbButton size="small" status="danger" class="right-margin off-text-transform"
                         (click)="selectCiOnly();openComplexityViewerForFile(file)">Inheritance</button>
                 <button nbButton size="small" status="primary" class="right-margin off-text-transform"
-                        (click)="selectCcpOnly();openComplexityViewerForFile(file)">Coupling</button>
+                        (click)="selectAllFilters();openComplexityViewerForFile(file)">Coupling</button>
                 <button nbButton size="small" status="info" class="right-margin off-text-transform"
                         (click)="selectCcsOnly();openComplexityViewerForFile(file)">Control Structure</button>
               </div>
@@ -109,7 +109,7 @@
           <nb-checkbox [(value)]="filters.showCv" status="info">Cv : Complexity due to variables</nb-checkbox>
           <nb-checkbox [(value)]="filters.showCm" status="warning">Cm : Complexity due to methods</nb-checkbox>
           <nb-checkbox [(value)]="filters.showCi" status="danger">Ci : Complexity due to inheritance</nb-checkbox>
-          <nb-checkbox [(value)]="filters.showCcp" status="primary">Ccp : Complexity due to coupling</nb-checkbox>
+          <nb-checkbox [(value)]="filters.showCcp" status="primary" disabled>Ccp : Complexity due to coupling</nb-checkbox>
           <nb-checkbox [(value)]="filters.showCcs" status="info">Ccs : Complexity due to control structure</nb-checkbox>
         </div>
       </div>
@@ -123,7 +123,7 @@
           <th *ngIf="filters.showCv">Cv</th>
           <th *ngIf="filters.showCm">Cm</th>
           <th *ngIf="filters.showCi">Ci</th>
-          <th *ngIf="filters.showCcp">Ccp</th>
+          <th *ngIf="filters.showCcp" hidden>Ccp</th>
           <th *ngIf="filters.showCcs">Ccs</th>
           <th *ngIf="isAllSelected()">Tot</th>
         </tr>
@@ -135,7 +135,7 @@
           <td *ngIf="filters.showCm" class="text-warning">{{getMethodComplexity(lineData?.methodComplexity)}}</td>
           <td *ngIf="filters.showCi" class="text-danger">
             {{getInheritanceComplexity(lineData?.inheritanceComplexity)}}</td>
-          <td *ngIf="filters.showCcp" class="text-primary">{{lineData.cnc}}</td>
+          <td *ngIf="filters.showCcp" class="text-primary" hidden>{{lineData.cnc}}</td>
           <td *ngIf="filters.showCcs" class="text-info">
             {{getControlStructureComplexity(lineData?.controlStructureComplexity)}}</td>
           <td *ngIf="isAllSelected()" class="text-info">{{getSizeComplexity(lineData?.sizeComplexity) +
@@ -153,8 +153,14 @@
       <label class="label right-gap-long">Cv : {{getFileSummary(selectedFile).variableComplexity}}</label>
       <label class="label right-gap-long">Cm : {{getFileSummary(selectedFile).methodComplexity}}</label>
       <label class="label right-gap-long">Ci : {{getFileSummary(selectedFile).inheritanceComplexity}}</label>
-      <label class="label right-gap-long">Ccp : {{getFileSummary(selectedFile).cnc}}</label>
       <label class="label right-gap-long">Ccs : {{getFileSummary(selectedFile).controlStructureComplexity}}</label>
+      <label class="label right-gap-long">Complexity due to coupling : {{getFileSummary(selectedFile).couplingComplexity}}</label>
+      <label class="label right-gap-long">Total Complexity : {{getFileSummary(selectedFile).sizeComplexity +
+          getFileSummary(selectedFile).variableComplexity +
+          getFileSummary(selectedFile).methodComplexity +
+          getFileSummary(selectedFile).inheritanceComplexity +
+          getFileSummary(selectedFile).controlStructureComplexity +
+          getFileSummary(selectedFile).couplingComplexity}}</label>
 <!--      <label class="label right-gap-long">Tw : {{getFileSummary(selectedFile).tw}}</label>-->
     </nb-card-footer>
   </nb-card>

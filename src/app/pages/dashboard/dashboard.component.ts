@@ -11,6 +11,7 @@ import {MethodComplexity} from '../../@core/model/method-complexity';
 import {SizeComplexity} from '../../@core/model/size-complexity';
 import {ControlStructureComplexity} from '../../@core/model/control-structure-complexity';
 import {InheritanceComplexity} from '../../@core/model/inheritance-complexity';
+import {CouplingComplexity} from '../../@core/model/coupling-complexity';
 
 class LineMock {
   sizeComplexity: number;
@@ -177,6 +178,7 @@ export class DashboardComponent implements OnInit {
         summaryLine.inheritanceComplexity += this.getInheritanceComplexity(line.inheritanceComplexity);
       }
     }
+    summaryLine.couplingComplexity = this.getCouplingComplexity(file.couplingComplexity);
     return summaryLine;
   }
 
@@ -220,6 +222,12 @@ export class DashboardComponent implements OnInit {
     else return 0;
   }
 
+  getCouplingComplexity(couplingComplexity: CouplingComplexity): number {
+    if (couplingComplexity)
+      return WeightService.getComplexityDueToCoupling(couplingComplexity);
+    else return 0;
+  }
+
   calculateProjectComplexity(): number {
     let totalComplexity: number = 0;
 
@@ -229,9 +237,9 @@ export class DashboardComponent implements OnInit {
         totalComplexity += this.getVariableComplexity(line.variableComplexity);
         totalComplexity += this.getMethodComplexity(line.methodComplexity);
         totalComplexity += this.getInheritanceComplexity(line.inheritanceComplexity);
-        totalComplexity += line.cnc;
         totalComplexity += this.getControlStructureComplexity(line.controlStructureComplexity);
       }
+      totalComplexity += this.getCouplingComplexity(file.couplingComplexity);
     }
 
     return totalComplexity;

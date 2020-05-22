@@ -4,6 +4,7 @@ import {MethodComplexity} from '../model/method-complexity';
 import {SizeComplexity} from '../model/size-complexity';
 import {ControlStructureComplexity} from '../model/control-structure-complexity';
 import {InheritanceComplexity} from '../model/inheritance-complexity';
+import {CouplingComplexity} from '../model/coupling-complexity';
 
 @Injectable({
   providedIn: 'root',
@@ -209,5 +210,32 @@ export class WeightService {
       }
     }
     return 0;
+  }
+
+  static getComplexityDueToCoupling(couplingComplexity: CouplingComplexity): number {
+    return (couplingComplexity.regularMethodCallingAnotherRegularMethodInTheSameFile *
+      this._weightValuesForCoupling.Aregularmethodcallinganotherregularmethodinthesamefile) +
+    (couplingComplexity.regularMethodCallingAnotherRegularMethodInaDifferentFile *
+      this._weightValuesForCoupling.Aregularmethodcallinganotherregularmethodinadifferentfile) +
+    (couplingComplexity.regularMethodCallingARecursiveMethodInTheSameFile *
+      this._weightValuesForCoupling.Aregularmethodcallingarecursivemethodinthesamefile) +
+    (couplingComplexity.regularMethodCallingARecursiveMethodInaDifferentFile *
+      this._weightValuesForCoupling.Aregularmethodcallingarecursivemethodinadifferentfile) +
+    (couplingComplexity.recursiveMethodCallingAnotherRecursiveMethodInTheSameFile *
+      this._weightValuesForCoupling.Arecursivemethodcallinganotherrecursivemethodinthesamefile) +
+    (couplingComplexity.recursiveMethodCallingAnotherRecursiveMethodInaDifferentFile *
+      this._weightValuesForCoupling.Arecursivemethodcallinganotherrecursivemethodinadifferentfile) +
+    (couplingComplexity.recursiveMethodCallingARegularMethodInTheSameFile *
+      this._weightValuesForCoupling.Arecursivemethodcallingaregularmethodinthesamefile) +
+    (couplingComplexity.recursiveMethodCallingARegularMethodInaDifferentFile *
+      this._weightValuesForCoupling.Arecursivemethodcallingaregularmethodinadifferentfile) +
+    (couplingComplexity.regularMethodReferencingAGlobalVariableInTheSameFile *
+      this._weightValuesForCoupling.Aregularmethodreferencingaglobalvariableinthesamefile) +
+    (couplingComplexity.regularMethodReferencingAGlobalVariableInADifferentFile *
+      this._weightValuesForCoupling.Aregularmethodreferencingaglobalvariableinadifferentfile) +
+    (couplingComplexity.recursiveMethodReferencingAGlobalVariableInTheSameFile *
+      this._weightValuesForCoupling.Arecursivemethodreferencingaglobalvariableinthesamefile) +
+    (couplingComplexity.recursiveMethodReferencingAGlobalVariableInADifferentFile *
+      this._weightValuesForCoupling.Arecursivemethodreferencingaglobalvariableinadifferentfile);
   }
 }
